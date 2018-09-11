@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.GpsCheckRuleManualMapper">
+
+    <select id="findList" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.GpsCheckRuleSearchReq">
+        SELECT
+        gcr.id AS id,
+        gcr.flag AS flag,
+        gcr.description AS description,
+        gcr.is_open AS isOpen,
+        gcr.is_global AS isGlobal,
+        gcr.create_time AS createTime,
+        gcr.update_time AS updateTime,
+        gcr.`range` AS `range`
+        FROM
+        gps_check_rule gcr
+        <where>
+            1=1
+            <if test="flag!=null">
+                and gcr.flag like concat('%',#{flag},'%')
+            </if>
+        </where>
+        ORDER BY gcr.id desc
+    </select>
+</mapper>

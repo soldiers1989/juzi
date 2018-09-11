@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.ProductGoodsManualMapper" >
+  <resultMap id="BaseResultMap" type="com.jzfq.retail.bean.domain.ProductGoods" >
+    <id column="productGoods_id" property="id" jdbcType="INTEGER" />
+    <result column="productGoods_product_id" property="productId" jdbcType="INTEGER" />
+    <result column="productGoods_norm_attr_id" property="normAttrId" jdbcType="VARCHAR" />
+    <result column="productGoods_norm_name" property="normName" jdbcType="VARCHAR" />
+    <result column="productGoods_mall_pc_price" property="mallPcPrice" jdbcType="DECIMAL" />
+    <result column="productGoods_mall_mobile_price" property="mallMobilePrice" jdbcType="DECIMAL" />
+    <result column="productGoods_product_stock" property="productStock" jdbcType="INTEGER" />
+    <result column="productGoods_product_stock_warning" property="productStockWarning" jdbcType="INTEGER" />
+    <result column="productGoods_actual_sales" property="actualSales" jdbcType="INTEGER" />
+    <result column="productGoods_sku" property="sku" jdbcType="VARCHAR" />
+    <result column="productGoods_images" property="images" jdbcType="VARCHAR" />
+    <result column="productGoods_state" property="state" jdbcType="BIT" />
+    <result column="productGoods_weight" property="weight" jdbcType="DECIMAL" />
+    <result column="productGoods_length" property="length" jdbcType="INTEGER" />
+    <result column="productGoods_width" property="width" jdbcType="INTEGER" />
+    <result column="productGoods_height" property="height" jdbcType="INTEGER" />
+    <result column="productGoods_barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="productGoods_sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="productGoods_is_search" property="isSearch" jdbcType="BIT" />
+    <result column="productGoods_is_coupon" property="isCoupon" jdbcType="BIT" />
+    <result column="productGoods_other_sku" property="otherSku" jdbcType="VARCHAR" />
+    <result column="productGoods_article_number" property="articleNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    productGoods.id as productGoods_id, productGoods.product_id as productGoods_product_id,
+    productGoods.norm_attr_id as productGoods_norm_attr_id, productGoods.norm_name as productGoods_norm_name, 
+    productGoods.mall_pc_price as productGoods_mall_pc_price, productGoods.mall_mobile_price as productGoods_mall_mobile_price, 
+    productGoods.product_stock as productGoods_product_stock, productGoods.product_stock_warning as productGoods_product_stock_warning, 
+    productGoods.actual_sales as productGoods_actual_sales, productGoods.sku as productGoods_sku, 
+    productGoods.images as productGoods_images, productGoods.state as productGoods_state, 
+    productGoods.weight as productGoods_weight, productGoods.length as productGoods_length, 
+    productGoods.width as productGoods_width, productGoods.height as productGoods_height, 
+    productGoods.barcode as productGoods_barcode, productGoods.sku_name as productGoods_sku_name, 
+    productGoods.is_search as productGoods_is_search, productGoods.is_coupon as productGoods_is_coupon, 
+    productGoods.other_sku as productGoods_other_sku, productGoods.article_number as productGoods_article_number
+  </sql>
+
+  <select id="selectBySellerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from product_goods productGoods
+    where product_id in (select id from product where seller_id = #{sellerId, jdbcType=INTEGER} and state = 6 and identification = 1)
+  </select>
+
+  <select id="selectByParam" parameterType="com.jzfq.retail.bean.domain.ProductGoods" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from product_goods productGoods
+    WHERE 1=1
+    <if test="productId != null">
+      and productGoods.product_id = #{productId, jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

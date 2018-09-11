@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="${dubbo.application.name}" />
+
+	<dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" />
+
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
+
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.IdemoService" ref="demoServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.TwoDimensionCodeService" ref="twoDimensionCodeServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrderImageService" ref="orderImageServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.GoodsStockService" ref="goodsStockServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.DataTransferService" ref="dataTransferServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.RemittanceAccountService" ref="remittanceAccountServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerSettlePointService" ref="sellerSettlePointServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.DictionaryService" ref="dictionaryServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.AccessLogService" ref="accessLogServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.AreasService" ref="areasServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ErrorRetryTaskService" ref="errorRetryTaskServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ForeignCRMService" ref="foreignCRMServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.GpsCheckRuleService" ref="gpsCheckRuleServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.AdminLoginService" ref="adminLoginServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrdersBaseService" ref="ordersBaseServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrderSnCountService" ref="orderSnCountServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProductBrandService" ref="productBrandServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProductCateBrandAreasService" ref="productCateBrandAreasServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProductCateService" ref="productCateServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProductService" ref="productServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerCateBrandRelService" ref="sellerCateBrandRelServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerBusiService" ref="sellerBusiServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerLoginOpenIDRelService" ref="sellerLoginOpenIDRelServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerLoginPermissionService" ref="sellerLoginPermissionServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerLoginService" ref="sellerLoginServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerRatioService" ref="sellerRatioServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerService" ref="sellerServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerSingleCreditService" ref="sellerSingleCreditServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerTermService" ref="sellerTermServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="10000" retries="0" interface="com.jzfq.retail.core.api.service.ShopBusiService" ref="shopBusiServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SysPermissionService" ref="sysPermissionServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SysUserService" ref="sysUserServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SysRoleService" ref="sysRoleServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.RedisService" ref="redisServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ShopScanService" ref="shopScanServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<!--20180807-->
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SelectLogService" ref="selectLogServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<!--20180808-->
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrderRiskService" ref="orderRiskServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+
+	<!--图片上传oss-->
+	<dubbo:service timeout="10000" retries="0" interface="com.jzfq.retail.core.api.service.OSSService" ref="ossService" protocol="dubbo" group="${dubbo.group}"/>
+
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.SellerAddressService" ref="sellerAddressServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrdersProductService" ref="ordersProductServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrdersTradeService" ref="ordersTradeServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<!--20180809-->
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProductInterestFreePeriodService" ref="productInterestFreePeriodServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+
+
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.StockAddressService" ref="stockAddressServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.StockSiteService" ref="stockSiteServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.StockStatusService" ref="stockStatusServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.StockInService" ref="stockInServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.StockHistoryService" ref="stockHistoryServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.ProblemOrderService" ref="problemOrderServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+	<!--20180816-->
+	<dubbo:service timeout="5000" retries="0" interface="com.jzfq.retail.core.api.service.OrdersSettleService" ref="ordersSettleServiceImpl" protocol="dubbo" group="${dubbo.group}"/>
+
+</beans>

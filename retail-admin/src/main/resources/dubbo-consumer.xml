@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="${dubbo.application.name}" />
+
+	<dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}"/>
+
+	<dubbo:reference protocol="dubbo" id="idemoService" interface="com.jzfq.retail.core.api.IdemoService" group="${dubbo.group}" retries="0"/>
+
+	<dubbo:reference protocol="dubbo" id="twoDimensionCodeService" interface="com.jzfq.retail.core.api.service.TwoDimensionCodeService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="dataTransferService" interface="com.jzfq.retail.core.api.service.DataTransferService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="remittanceAccountService" interface="com.jzfq.retail.core.api.service.RemittanceAccountService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerSettlePointService" interface="com.jzfq.retail.core.api.service.SellerSettlePointService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="dictionaryService" interface="com.jzfq.retail.core.api.service.DictionaryService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="accessLogService" interface="com.jzfq.retail.core.api.service.AccessLogService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="areasService" interface="com.jzfq.retail.core.api.service.AreasService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="errorRetryTaskService" interface="com.jzfq.retail.core.api.service.ErrorRetryTaskService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="foreignCRMService" interface="com.jzfq.retail.core.api.service.ForeignCRMService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="gpsCheckRuleService" interface="com.jzfq.retail.core.api.service.GpsCheckRuleService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="adminLoginService" interface="com.jzfq.retail.core.api.service.AdminLoginService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="ordersBaseService" interface="com.jzfq.retail.core.api.service.OrdersBaseService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="orderSnCountService" interface="com.jzfq.retail.core.api.service.OrderSnCountService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="productBrandService" interface="com.jzfq.retail.core.api.service.ProductBrandService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="productCateBrandAreasService" interface="com.jzfq.retail.core.api.service.ProductCateBrandAreasService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="productCateService" interface="com.jzfq.retail.core.api.service.ProductCateService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="productService" interface="com.jzfq.retail.core.api.service.ProductService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerCateBrandRelService" interface="com.jzfq.retail.core.api.service.SellerCateBrandRelService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerBusiService" interface="com.jzfq.retail.core.api.service.SellerBusiService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerLoginOpenIDRelService" interface="com.jzfq.retail.core.api.service.SellerLoginOpenIDRelService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerLoginPermissionService" interface="com.jzfq.retail.core.api.service.SellerLoginPermissionService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerLoginService" interface="com.jzfq.retail.core.api.service.SellerLoginService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerRatioService" interface="com.jzfq.retail.core.api.service.SellerRatioService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerService" interface="com.jzfq.retail.core.api.service.SellerService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerSingleCreditService" interface="com.jzfq.retail.core.api.service.SellerSingleCreditService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sellerTermService" interface="com.jzfq.retail.core.api.service.SellerTermService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="shopBusiService" interface="com.jzfq.retail.core.api.service.ShopBusiService" group="${dubbo.group}" retries="0" timeout="30000"/>
+	<dubbo:reference protocol="dubbo" id="sysPermissionService" interface="com.jzfq.retail.core.api.service.SysPermissionService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sysUerService" interface="com.jzfq.retail.core.api.service.SysUserService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="sysRoleService" interface="com.jzfq.retail.core.api.service.SysRoleService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="redisService" interface="com.jzfq.retail.core.api.service.RedisService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="stockInService" interface="com.jzfq.retail.core.api.service.StockInService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="stockAddressService" interface="com.jzfq.retail.core.api.service.StockAddressService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="stockSiteService" interface="com.jzfq.retail.core.api.service.StockSiteService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="stockStatusService" interface="com.jzfq.retail.core.api.service.StockStatusService" group="${dubbo.group}" retries="0"/>
+	<dubbo:reference protocol="dubbo" id="stockHistoryService" interface="com.jzfq.retail.core.api.service.StockHistoryService" group="${dubbo.group}" retries="0"/>
+	<!--上传图片-->
+	<dubbo:reference protocol="dubbo" id="ossService" interface="com.jzfq.retail.core.api.service.OSSService" group="${dubbo.group}" retries="0"/>
+	<!--20180807-->
+	<dubbo:reference protocol="dubbo" id="selectLogService" interface="com.jzfq.retail.core.api.service.SelectLogService" group="${dubbo.group}" retries="0"/>
+	<!--20180808-->
+	<dubbo:reference protocol="dubbo" id="orderRiskService" interface="com.jzfq.retail.core.api.service.OrderRiskService" group="${dubbo.group}" retries="0"/>
+
+	<dubbo:reference protocol="dubbo" id="problemOrderService" interface="com.jzfq.retail.core.api.service.ProblemOrderService" group="${dubbo.group}" retries="0"/>
+	<!--20180816-->
+	<dubbo:reference protocol="dubbo" id="ordersSettleService" interface="com.jzfq.retail.core.api.service.OrdersSettleService" group="${dubbo.group}" retries="0"/>
+
+	<!--RocketMQ-->
+	<dubbo:reference protocol="dubbo" id="rocketMQService" interface="com.jzfq.retail.core.api.service.RocketMQService" group="${dubbo.group}" retries="0"/>
+
+	<!--20180831-->
+	<dubbo:reference protocol="dubbo" id="withdrawRecordService" interface="com.jzfq.retail.core.api.service.WithdrawRecordService" group="${dubbo.group}" retries="0"/>
+
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.ProblemOrderManualMapper">
+
+    <select id="getMap1" resultType="map">
+    select
+     a.fail_suc failSuc,
+     a.fail fail,
+     round(a.fail_suc/a.fail, 2) rate
+     from
+     (select
+      (select count(0) from openid_record where status = 2
+      and open_id in (select open_id from openid_record where status = 3)) fail_suc,
+      (select count(0) from (select open_id, count(0) from openid_record where status = 3 group by open_id) a) fail
+    from dual) a
+    </select>
+
+
+    <select id="statisticsSellerRebate" resultType="map">
+        select seller_id, seller_name, sum(money_order) as sumvalue, sum(money_order)*0.02 as rewards, date(create_time) as date
+        from orders_base
+        where order_type = 2
+        and order_state in (160, 170, 180)
+        group by date(create_time), seller_id, seller_name
+        order by date(create_time), seller_id, seller_name
+    </select>
+
+</mapper>

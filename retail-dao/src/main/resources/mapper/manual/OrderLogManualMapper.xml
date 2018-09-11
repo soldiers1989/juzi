@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.OrderLogManualMapper">
+
+
+    <select id="selectByOrdersId" resultType="map">
+        select order_id, order_sn from order_log
+        <where>
+            <if test="status!=null">
+                and order_status = #{status}
+            </if>
+            <foreach collection="ids" item="id" open="and order_id in (" close=")" separator=",">
+                #{id}
+            </foreach>
+            and hour(timediff(create_time, NOW())) > #{hours}
+        </where>
+    </select>
+
+    <select id="findListByOrderSn" resultType="map" parameterType="string">
+      select
+        id,
+        order_id as orderId,
+        order_sn as orderSn ,
+        content,
+        DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') as createTime,
+        order_status as orderStatus
+      from order_log
+      where order_sn=#{orderSn}
+      order by create_time desc
+  </select>
+
+</mapper>

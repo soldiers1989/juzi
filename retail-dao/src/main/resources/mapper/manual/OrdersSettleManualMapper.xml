@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.OrdersSettleManualMapper" >
+
+  <select id="findList" resultType="com.jzfq.retail.bean.vo.res.OrdersSettleRes" parameterType="com.jzfq.retail.bean.vo.req.OrdersSettleSearch">
+
+     SELECT
+        os.order_id as orderId, -- 订单id
+        os.order_sn as orderSn, -- 订单编号
+        ob.confirm_time as confirmTime,	-- 下单时间
+        os._state as state, -- 结算状态
+        op.product_name as productName, -- 商品名称
+        pg.norm_name as productNormName,-- 商品规格
+        op.number as orderProductNumber,-- 商品数量
+        ot.money_discount as moneyDiscount, -- 优惠总金额
+        ob.money_order as moneyOrder, -- 订单总金额
+        ob.downpayment_amount as downpaymentAmount, -- 首付金额
+        pc.name as productCateName, -- 品类
+        pb.name as productBrandName, -- 品牌
+        ob.member_name as memberName, -- 买家
+        sc.account_period as accountPeriod, -- 账期
+        ob.seller_name as sellerName , -- 商家名称
+        ssp.settle_point as sellerSettlePoint , -- 商家扣点
+        -- 结算金额
+        sc.name as sellerCompanyName,-- 商户公司名称
+        sc.bank_name as bankName,-- 开户行
+        sc.bank_code as bankCode,-- 银行卡号
+        ob.remark as orderRemark,-- 订单备注
+        ob.order_type as orderType,-- 订单类型
+        -- 配货时间
+        ob.deliver_time as orderDeliverTime ,-- 发货时间
+        ob.codconfirm_time as orderCodconfirmTime, -- 确认收货时间
+        op.cost_price as 	productCostPrice,-- 产品成本价
+        ot.capital_id as orderCapitalId, -- 资方id
+        -- 优惠劵
+        ob.monthly_amount as orderMonthlyAmount, -- 订单月供
+        -- 城市
+        -- 是否免息
+        os.settle_real_time as settleRealTime, -- 实际结算时间
+        ob.month_ratio as monthRatio, -- 月利率
+        -- 分期金额
+        ou.name as consignee, -- 收货人
+        ou.address_all as receivingCity,-- 收货城市
+        -- 可打款时间
+        ot.term as term , -- 期数
+        ot.monthly_service as monthlyService -- 月服务费
+        -- 总服务费
+    FROM
+        orders_settle os
+        LEFT JOIN orders_base ob on ob.order_sn = os.order_sn
+        LEFT JOIN orders_product op on op.orders_sn = os.order_sn
+        LEFT JOIN orders_trade ot on ot.order_sn = os.order_sn
+        LEFT JOIN orders_user ou on ou.order_sn = os.order_sn
+        LEFT JOIN product_goods pg on pg.product_id = op.product_id
+        LEFT JOIN product_cate pc on pc.id = op.product_cate_id
+        LEFT JOIN product_brand pb on pb.id = op.product_brand_id
+        LEFT JOIN seller_settle_point ssp on ssp.seller_id = ob.seller_id
+        LEFT JOIN seller_company sc on sc.seller_id = ob.seller_id
+    <where>
+      <if test="orderSn!=null and orderSn!=''">
+        and  os.order_sn=#{orderSn}
+      </if>
+      <if test="sellerName!=null and sellerName!=''">
+        and ob.seller_name like concat('%',#{sellerName},'%')
+      </if>
+      <if test="state!=null and state!=''">
+        and  os._state=#{state}
+      </if>
+      <if test="orderDeliverTimeStart!=null and orderDeliverTimeEnd!=null">
+        and  ob.deliver_time &gt;= #{orderDeliverTimeStart} and ob.deliver_time &lt; #{orderDeliverTimeEnd}
+      </if>
+    </where>
+  </select>
+
+  <select id="findListAll" resultType="com.jzfq.retail.bean.vo.res.OrdersSettleRes" parameterType="com.jzfq.retail.bean.vo.req.OrdersSettleSearch">
+
+        SELECT
+        os.order_id as orderId, -- 订单id
+        os.order_sn as orderSn, -- 订单编号
+        ob.confirm_time as confirmTime,	-- 下单时间
+        os._state as state, -- 结算状态
+        op.product_name as productName, -- 商品名称
+        pg.norm_name as productNormName,-- 商品规格
+        op.number as orderProductNumber,-- 商品数量
+        ot.money_discount as moneyDiscount, -- 优惠总金额
+        ob.money_order as moneyOrder, -- 订单总金额
+        ob.downpayment_amount as downpaymentAmount, -- 首付金额
+        pc.name as productCateName, -- 品类
+        pb.name as productBrandName, -- 品牌
+        ob.member_name as memberName, -- 买家
+        sc.account_period as accountPeriod, -- 账期
+        ob.seller_name as sellerName , -- 商家名称
+        ssp.settle_point as sellerSettlePoint , -- 商家扣点
+        -- 结算金额
+        sc.name as sellerCompanyName,-- 商户公司名称
+        sc.bank_name as bankName,-- 开户行
+        sc.bank_code as bankCode,-- 银行卡号
+        ob.remark as orderRemark,-- 订单备注
+        ob.order_type as orderType,-- 订单类型
+        -- 配货时间
+        ob.deliver_time as orderDeliverTime ,-- 发货时间
+        ob.codconfirm_time as orderCodconfirmTime, -- 确认收货时间
+        op.cost_price as 	productCostPrice,-- 产品成本价
+        ot.capital_id as orderCapitalId, -- 资方id
+        -- 优惠劵
+        ob.monthly_amount as orderMonthlyAmount, -- 订单月供
+        -- 城市
+        -- 是否免息
+        os.settle_real_time as settleRealTime, -- 实际结算时间
+        ob.month_ratio as monthRatio, -- 月利率
+        -- 分期金额
+        ou.name as consignee, -- 收货人
+        ou.address_all as receivingCity,-- 收货城市
+        -- 可打款时间
+        ot.term as term , -- 期数
+        ot.monthly_service as monthlyService -- 月服务费
+        -- 总服务费
+        FROM
+        orders_settle os
+        LEFT JOIN orders_base ob on ob.order_sn = os.order_sn
+        LEFT JOIN orders_product op on op.orders_sn = os.order_sn
+        LEFT JOIN orders_trade ot on ot.order_sn = os.order_sn
+        LEFT JOIN orders_user ou on ou.order_sn = os.order_sn
+        LEFT JOIN product_goods pg on pg.product_id = op.product_id
+        LEFT JOIN product_cate pc on pc.id = op.product_cate_id
+        LEFT JOIN product_brand pb on pb.id = op.product_brand_id
+        LEFT JOIN seller_settle_point ssp on ssp.seller_id = ob.seller_id
+        LEFT JOIN seller_company sc on sc.seller_id = ob.seller_id
+        <where>
+            <if test="orderSn!=null and orderSn!=''">
+                and  os.order_sn=#{orderSn}
+            </if>
+            <if test="sellerName!=null and sellerName!=''">
+                and ob.seller_name like concat('%',#{sellerName},'%')
+            </if>
+            <if test="orderSn!=null and orderSn!=''">
+                and  os._state=#{state}
+            </if>
+            <if test="orderDeliverTimeStart!=null and orderDeliverTimeEnd!=null">
+                and  ob.deliver_time &gt;= #{orderDeliverTimeStart} and ob.deliver_time &lt; #{orderDeliverTimeEnd}
+            </if>
+        </where>
+    </select>
+</mapper>

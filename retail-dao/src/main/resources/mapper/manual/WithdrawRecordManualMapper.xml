@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.WithdrawRecordManualMapper" >
+  <select id="findList" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.WithdrawRecordSearchReq">
+    SELECT
+      wr.id AS id,
+      wr.withdraw_id AS withdrawId,
+      wr.seller_id AS sellerId,
+      wr.seller_code AS sellerCode,
+      wr.seller_name AS sellerName,
+      wr.merchant AS merchant,
+      wr.application AS application,
+      wr.amount AS amount,
+      wr.state AS state,
+      wr.fail_reason AS failReason,
+      wr.trans_num AS transNum,
+      wr.create_user_id AS createUserId,
+      wr.create_user_name AS createUserName,
+      DATE_FORMAT(wr.create_time, '%Y-%m-%d %H:%i:%s') AS createTime,
+      DATE_FORMAT(wr.finish_time, '%Y-%m-%d %H:%i:%s') AS finishTime
+    FROM
+      withdraw_record wr
+    <where>
+      1=1
+      <if test="sellerCode!=null">
+        and wr.seller_code = #{sellerCode}
+      </if>
+      <if test="sellerName!=null">
+        and wr.seller_name like concat('%',#{sellerName},'%')
+      </if>
+      <if test="withdrawId!=null">
+        and wr.withdrawId = #{withdrawId}
+      </if>
+      <if test="createTimeBegin!=null">
+        and wr.create_time &gt;= #{createTimeBegin}
+      </if>
+      <if test="createTimeEnd!=null">
+        and wr.create_time &lt; #{createTimeEnd}
+      </if>
+      <if test="finishTimeBegin!=null">
+        and wr.finish_time &gt;= #{finishTimeBegin}
+      </if>
+      <if test="finishTimeEnd!=null">
+        and wr.finish_time &lt; #{finishTimeEnd}
+      </if>
+      <if test="state!=null">
+        and wr.state = = #{state}
+      </if>
+      <if test="createUserName!=null">
+        and wr.create_user_name like concat('%',#{createUserName},'%')
+      </if>
+    </where>
+  </select>
+</mapper>

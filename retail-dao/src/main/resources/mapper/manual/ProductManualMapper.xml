@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.ProductManualMapper">
+
+    <select id="findList" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.ProductSearchReq">
+        SELECT
+        p.id AS id,
+        p.product_cate_id AS productCateId,
+        pc.name AS productCateName,
+        p.product_cate_path AS productCatePath,
+        p.name1 AS name1,
+        p.name2 AS name2,
+        p.keyword AS keyword,
+        p.product_brand_id AS productBrandId,
+        pb.name as productBrandName,
+        p.is_self AS isSelf,
+        p.cost_price AS costPrice,
+        p.protected_price AS protectedPrice,
+        p.market_price AS marketPrice,
+        p.mall_pc_price AS mallPcPrice,
+        p.mal_mobile_price AS malMobilePrice,
+        p.virtual_sales AS virtualSales,
+        p.actual_sales AS actualSales,
+        p.product_stock AS productStock,
+        p.is_norm AS isNorm,
+        p.norm_ids AS normIds,
+        p.norm_name AS normName,
+        p.state AS state,
+        p.is_top AS isTop,
+        DATE_FORMAT(
+        p.up_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS upTime,
+        p.description AS description,
+        p.packing AS packing,
+        p.seller_id AS sellerId,
+        s.seller_name AS sellerName,
+        p.create_id AS createId,
+        (select real_name from sys_user where id = p.create_id) AS createUser,
+        p.up_user_id AS upUserId,
+        (select real_name from sys_user where id = p.up_user_id) AS upUser,
+        DATE_FORMAT(
+        p.create_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS createTime,
+        DATE_FORMAT(
+        p.update_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS updateTime,
+        p.seller_cate_id AS sellerCateId,
+        p.seller_is_top AS sellerIsTop,
+        p.seller_state AS sellerState,
+        p.comments_number AS commentsNumber,
+        p.product_cate_state AS productCateState,
+        p.is_invented_product AS isInventedProduct,
+        p.transport_type AS transportType,
+        p.transport_id AS transportId,
+        p.master_img AS masterImg,
+        p.product_code AS productCode,
+        p.short_name AS shortName,
+        p.weights AS weights,
+        p.settlement_price AS settlementPrice,
+        DATE_FORMAT(
+        p.off_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) AS offTime,
+        p.after_sales AS afterSales,
+        p.m_floor_data_id AS mFloorDataId,
+        p.master_middle_img AS masterMiddleImg,
+        p.master_little_img AS masterLittleImg,
+        p.tag_fall AS tagFall,
+        p.tag_free AS tagFree,
+        p.source_description AS sourceDescription,
+        p.is_full_payment AS isFullPayment,
+        p.is_by_stages AS isByStages,
+        p.is_search AS isSearch,
+        p.is_pickself AS isPickself,
+        p.remark4 AS remark4,
+        p.remark5 AS remark5,
+        p.remark6 AS remark6,
+        p.remark7 AS remark7,
+        p.spec_packing AS specPacking,
+        p.is_category AS isCategory,
+        p.limits AS limits,
+        p.delivery_channel AS deliveryChannel,
+        p.identification AS identification,
+        p.huohao AS huohao
+        FROM
+        product p
+        LEFT JOIN product_cate pc ON p.product_cate_id = pc.id
+        LEFT JOIN product_brand pb ON p.product_brand_id = pb.id
+        LEFT JOIN seller s ON p.seller_id = s.id
+        <where>
+            1=1
+            <if test="productCateName!=null">
+                and pc.name like concat('%',#{productCateName},'%')
+            </if>
+            <if test="productBrandName!=null">
+                and pb.name like concat('%',#{productBrandName},'%')
+            </if>
+            <if test="productName!=null">
+                and p.name1 like concat('%',#{productName},'%')
+            </if>
+            <if test="productStatus!=null">
+                and p.state = #{productStatus}
+            </if>
+            <if test="sellerName!=null">
+                and s.seller_name like concat('%',#{sellerName},'%')
+            </if>
+        </where>
+        ORDER BY p.id desc
+    </select>
+
+
+    <select id="findListBySellerId" resultType="map" parameterType="int">
+        select
+        p.id as id,
+        p.market_price as marketPrice,
+        p.name1 as name,
+        p.state as state,
+        p.master_img as  masterImg,
+        CONCAT(pa.name,pb.name) as procutCateBrand
+        from product p
+        left join product_cate pa on p.product_cate_id = pa.id
+        left join product_brand pb on p.product_brand_id = pb.id
+        <where>
+            <if test="sellerId!=null">
+                and p.seller_id=#{sellerId}
+            </if>
+            <if test="states!=null">
+                <foreach collection="states" item="s" open="and p.state in (" separator="," close=")">
+                    #{s}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findListBySellerIdAndIdentification" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        select
+        p.id as id,
+        p.name1 as name
+        from product p
+        where p.seller_id=#{sellerId} and p.identification=#{identification} and p.state= #{state}
+    </select>
+
+    <select id="selectByParam" resultType="java.util.HashMap" parameterType="com.jzfq.retail.bean.domain.Product">
+        select
+        p.id as id,
+        p.name1 as name,
+        product_cate_id as productCateId,
+        seller_id as sellerId,
+        norm_name as normName,
+        pro_label as proLabel
+        from product p where 1 = 1
+        <if test="sellerId != null">
+            and p.seller_id=#{sellerId}
+        </if>
+        <if test="identification != null">
+            and p.identification=#{identification}
+        </if>
+        <if test="state != null">
+            and p.state= #{state}
+        </if>
+        <if test="productCateId != null">
+            and p.product_cate_id = #{productCateId}
+        </if>
+    </select>
+
+    <select id="selectOnShelfInfoById" parameterType="java.lang.Integer" resultType="map">
+        select p.id as productId, p.product_cate_id as productCateId, pc.name as productCateName,
+        p.product_brand_id as productBrandId,pb.name as productBrandName, p.pro_label as proLabel,
+        p.norm_name as normName,p.remark4 as remark4, p.state as state
+        from product p LEFT JOIN product_cate pc on p.product_cate_id = pc.id
+          left JOIN product_brand pb on p.product_brand_id = pb.id
+        where p.id = #{id, jdbcType=INTEGER};
+    </select>
+
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.ProductImageManualMapper" >
+
+  <select id="selectByProductId" parameterType="java.lang.Integer" resultType="map">
+    select id, product_id as productId, url, remark, sort
+    from product_image where product_id = #{productId,jdbcType=INTEGER}
+    and status = 0 and type = 1 order by sort ASC;
+  </select>
+  <delete id="deleteByProductId" parameterType="java.lang.Integer" >
+    delete from product_image
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+</mapper>

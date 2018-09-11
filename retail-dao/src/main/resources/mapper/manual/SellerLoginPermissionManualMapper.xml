@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.SellerLoginPermissionManualMapper">
+
+    <resultMap id="BaseResultMap" type="com.jzfq.retail.bean.domain.SellerLoginPermission">
+        <id column="sellerLoginPermission_id" property="id" jdbcType="INTEGER"/>
+        <result column="sellerLoginPermission_seller_id" property="sellerId" jdbcType="INTEGER"/>
+        <result column="sellerLoginPermission_seller_name" property="sellerName" jdbcType="VARCHAR"/>
+        <result column="sellerLoginPermission_seller_code" property="sellerCode" jdbcType="VARCHAR"/>
+        <result column="sellerLoginPermission_seller_mobile" property="sellerMobile" jdbcType="VARCHAR"/>
+        <result column="sellerLoginPermission_seller_login" property="sellerLogin" jdbcType="VARCHAR"/>
+        <result column="sellerLoginPermission_seller_password" property="sellerPassword" jdbcType="VARCHAR"/>
+        <result column="sellerLoginPermission_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="sellerLoginPermission_create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="sellerLoginPermission_create_user" property="createUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sellerLoginPermission.id as sellerLoginPermission_id, sellerLoginPermission.seller_id as sellerLoginPermission_seller_id,
+        sellerLoginPermission.seller_name as sellerLoginPermission_seller_name, sellerLoginPermission.seller_code as sellerLoginPermission_seller_code,
+        sellerLoginPermission.seller_mobile as sellerLoginPermission_seller_mobile, sellerLoginPermission.seller_login as sellerLoginPermission_seller_login,
+        sellerLoginPermission.seller_password as sellerLoginPermission_seller_password, sellerLoginPermission.create_time as sellerLoginPermission_create_time,
+        sellerLoginPermission.create_id as sellerLoginPermission_create_id, sellerLoginPermission.create_user as sellerLoginPermission_create_user
+    </sql>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.jzfq.retail.bean.domain.SellerLoginPermission">
+        select
+        <include refid="Base_Column_List"/>
+        from seller_login_permission sellerLoginPermission
+        <where>
+            <if test="id!=null">
+                and sellerLoginPermission.id=#{id}
+            </if>
+            <if test="sellerName!=null">
+                and sellerLoginPermission.seller_name=#{sellerName}
+            </if>
+            <if test="sellerMobile!=null">
+                and sellerLoginPermission.seller_mobile=#{sellerMobile}
+            </if>
+            <if test="sellerLogin!=null">
+                and sellerLoginPermission.seller_login = #{sellerLogin}
+            </if>
+            <if test="sellerPassword!=null">
+                and sellerLoginPermission.seller_password=#{sellerPassword}
+            </if>
+        </where>
+    </select>
+
+    <select id="checkSellerLogin" resultType="long" parameterType="map">
+      select count(0)
+        from seller_login_permission p
+        JOIN seller_login_openid_rel r on p.id = r.login_permission_id
+        where p.seller_login = #{sellerCode}
+        and p.seller_mobile = #{sellerMobile}
+        and r.openID = #{openID}
+    </select>
+</mapper>

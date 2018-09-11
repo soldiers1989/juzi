@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.OpenidRecordManualMapper">
+    <select id="getAuthenticationStateOfCountAndRatio" resultType="map">
+        select
+            a.b0 未认证数量,
+            round(a.b0/a.b4, 2)  未认证数量比例,
+            a.b1 认证审核中数量,
+            round(a.b1/a.b4, 2) 认证审核中数量比例,
+            a.b2 认证审核成功数量,
+            round(a.b2/a.b4, 2) 认证审核成功数量比例,
+            a.b3 认证审核失败数量,
+            round(a.b3/a.b4, 2) 认证审核失败数量比例,
+            a.b4 总数
+        from(
+          select
+            -- 未认证
+            (select count(0) from (select open_id, count(0) from openid_record where status = 0 and open_id not in (select open_id from openid_record where status in (1,2,3)) group by open_id) a0) b0,
+
+            -- 认证中
+            (select count(0) from (select open_id, count(0) from openid_record where status = 1 and open_id not in (select open_id from openid_record where status in (2,3)) group by open_id) a1) b1,
+
+            -- 认证成功
+            (select count(0) from (select open_id, count(0) from openid_record where status = 2 group by open_id) a2) b2,
+
+            -- 认证失败
+            (select count(0) from (select open_id, count(0) from openid_record where status = 3 and open_id not in (select open_id from openid_record where status in (2)) group by open_id) a3) b3,
+
+            -- 总数
+            (select count(0) from (select open_id, count(0) from openid_record group by open_id) a4) b4
+          from dual
+        ) a
+    </select>
+</mapper>

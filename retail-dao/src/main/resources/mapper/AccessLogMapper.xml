@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jzfq.retail.core.dao.AccessLogMapper">
+
+    <insert id="saveAccessLog">
+        INSERT INTO sys_access_log (
+        provider,
+        address,
+        uri,
+        biz_id,
+        serial_no,
+        call_status,
+        title,
+        req_data,
+        res_data,
+        exception,
+        date_created,
+        last_modified,
+        disabled,
+        deleted,
+        remark
+        )
+        VALUES
+        (
+        #{provider},
+        #{address},
+        #{uri},
+        #{bizId},
+        #{serialNo},
+        #{callStatus},
+        #{title},
+        #{reqData},
+        #{resData},
+        #{exception},
+        now(),
+        now(),
+        0,
+        0,
+        #{remark}
+        );
+    </insert>
+
+    <update id="updateAccessLog">
+        UPDATE sys_access_log SET call_status=#{callStatus},last_modified=now(),res_data=#{resData},exception=#{exception}
+        WHERE provider=#{provider} and biz_id=#{bizId} and serial_no=#{serialNo}
+    </update>
+
+    <select id="findById" resultType="com.jzfq.retail.bean.mapper.AccessLog">
+        SELECT * FROM sys_access_log where id=#{id} limit 1;
+    </select>
+
+    <select id="findAllList" resultType="com.jzfq.retail.bean.mapper.AccessLog">
+        SELECT * FROM sys_access_log
+    </select>
+
+</mapper>

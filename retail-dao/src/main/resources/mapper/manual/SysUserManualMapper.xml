@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.SysUserManualMapper" >
+
+  <select id="findList" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.SysUserSearchReq">
+    SELECT
+    su.id AS id,
+    su.code AS code,
+    su.nick_name AS nickName,
+    su.real_name AS realName,
+    su.phone AS phone,
+    su.id_number AS idNumber,
+    su.province AS province,
+    pa.`name` AS provinceLabel,
+    su.city AS city,
+    ca.`name` AS cityLabel,
+    su.wechat AS wechat,
+    su.qq AS qq,
+    su.email AS email,
+    su.roles AS roles,
+    DATE_FORMAT(
+    su.create_time,
+    '%Y-%m-%d %H:%i:%s'
+    ) AS createTime
+    FROM
+    sys_user su
+    LEFT JOIN areas pa ON su.province = pa.area_id
+    LEFT JOIN areas ca ON su.city = ca.area_id
+    <where>
+      1=1
+      <if test="code!=null">
+        and su.code=#{code}
+      </if>
+      <if test="nickName!=null">
+        and su.nick_name=#{nickName}
+      </if>
+      <if test="realName!=null">
+        and su.real_name like concat('%',#{realName},'%')
+      </if>
+      <if test="phone!=null">
+        and su.phone=#{phone}
+      </if>
+    </where>
+  </select>
+
+</mapper>

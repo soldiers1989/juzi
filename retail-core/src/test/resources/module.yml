@@ -1,0 +1,20 @@
+#################################################
+#lw rabbitmq producer endpoint config
+rabbitmq.lw.trans.exchange.name=exchange_lw
+rabbitmq.lw.trans.req.routingkey.name=req_routingkey_lw
+
+rabbitmq.lw.trans.res.routingkey.name=res_routingkey_lw
+rabbitmq.lw.pho.req.queue.binding.pattern=res_routingkey_lw
+
+#lw rabbitmq consumer endpoint config
+rabbitmq.lw.trans.req.queue.name=req_queue_lw
+rabbitmq.lw.trans.req.queue.binding.pattern=req.binding.lw
+rabbitmq.lw.trans.req.queue.binding.routingkey=req.binding.lw
+
+rabbitmq.lw.trans.res.queue.name=res_queue_lw
+rabbitmq.lw.trans.res.queue.binding.pattern=res.binding.lw
+
+
+
+
+

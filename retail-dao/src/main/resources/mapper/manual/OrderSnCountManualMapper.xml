@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.OrderSnCountManualMapper">
+
+    <select id="getBySellerIdAndDateStr" resultType="com.jzfq.retail.bean.domain.OrderSnCount">
+        select
+          id,
+          current_val as currentVal,
+          seller_id as sellerId ,
+          date_str as dateStr
+        from
+          order_sn_count
+        where seller_id = #{sellerId} and date_str = #{dateStr} for update
+    </select>
+
+    <update id="updateCurrentValById" parameterType="int">
+        update order_sn_count set current_val = current_val+1 where id = #{id}
+    </update>
+
+    <insert id="initCurrentVal">
+        insert into order_sn_count(current_val,seller_id,date_str) values(1,#{sellerId},#{dateStr})
+    </insert>
+
+</mapper>

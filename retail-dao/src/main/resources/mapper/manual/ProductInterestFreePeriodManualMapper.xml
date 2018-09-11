@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.ProductInterestFreePeriodManualMapper">
+
+
+    <select id="findInterestFreePeriodsByProductId" resultType="string" parameterType="int">
+        select interest_free_periods from product_interest_free_period where product_id=#{productId}
+    </select>
+
+
+</mapper>

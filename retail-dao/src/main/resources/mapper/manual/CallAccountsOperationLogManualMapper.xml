@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.CallAccountsOperationLogManualMapper">
+
+    <select id="findListByMacId" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.SelectOperationLogReq">
+        select
+        mac_id as macId,
+        `type`,
+        service_type as serviceType ,
+        url,
+        DATE_FORMAT(request_time,'%Y-%m-%d %H:%i:%s') as requestTime,
+        request_param as requestParam,
+        DATE_FORMAT(response_time,'%Y-%m-%d %H:%i:%s') as responseTime,
+        response_param as responseParam,
+        remark,
+        status
+        from call_accounts_operation_log
+        <where>
+            <if test="macId!=null and macId!=''">
+                and mac_id=#{macId}
+            </if>
+            <if test="serviceType!=null and serviceType!=''">
+                and service_type=#{serviceType}
+            </if>
+        </where>
+        order by request_time desc
+    </select>
+
+</mapper>

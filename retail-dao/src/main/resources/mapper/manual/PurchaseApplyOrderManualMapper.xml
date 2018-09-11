@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.PurchaseApplyOrderManualMapper">
+
+    <select id="findList" resultType="map" parameterType="com.jzfq.retail.bean.vo.req.PurchaseApplyOrderSearchReq">
+        SELECT
+        pao.supplier_name AS supplierName,
+        pao.apply_time AS applyTime,
+        pao.order_time AS orderTime,
+        pao.seller_collect_addres_info AS sellerCollectAddresInfo,
+        pao.entry_personnel AS entryPersonnel,
+        pao.finish_time AS finishTime,
+        pao.object_name AS objectName,
+        pao.demand_personnel AS demandPersonnel,
+        pao.buyer AS buyer,
+        pao.account_period AS accountPeriod,
+        pao.contract AS contract,
+        pao.remark AS remark,
+        pao.total_money AS totalMoney,
+        pao.pre_money AS preMoney,
+        pao.print AS print,
+        pao.status AS status,
+        pao.first_courier AS firstCourier,
+        pao.close_time AS closeTime
+        FROM
+        purchase_apply_order AS pao
+        LEFT JOIN
+        supplier s ON pao.supplier_id = s.id
+        LEFT JOIN
+        seller_collect_address sca ON pao.seller_collect_addres_id = sca.id
+        <where>
+            1=1
+        </where>
+        ORDER BY pao.id desc
+    </select>
+
+</mapper>

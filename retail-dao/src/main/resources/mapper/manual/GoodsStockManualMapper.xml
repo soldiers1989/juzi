@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jzfq.retail.core.dao.manual.GoodsStockManualMapper">
+
+    <select id="selectByProductId" resultType="map">
+        select
+            gs.id as id,
+            gs.current_count as currentCount,
+            gs.frozen_count as frozenCount,
+            pg.mall_mobile_price as price,
+            gs.sku as skuId,
+            pg.norm_name as skuName,
+            gs.total_count as totalCount
+        from goods_stock gs
+        left join product_goods pg on gs.product_goods_id = pg.id
+        <where>
+            <if test="productId!=null">
+                and gs.product_id = #{productId}
+            </if>
+        </where>
+    </select>
+</mapper>

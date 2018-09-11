@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jzfq.retail.core.dao.MQErrorLogMapper">
+
+    <insert id="saveMQErrorLog">
+        INSERT INTO mq_error_log (
+            date_created,
+            deleted,
+            disabled,
+            last_modified,
+            remark,
+            exception,
+            message,
+            occasion,
+            provider,
+            scene,
+            exchange,
+            routing_key
+        )
+        VALUES
+            (
+                now(),
+                0,
+                0,
+                now(),
+                #{remark},
+                #{exception},
+                #{message},
+                #{occasion},
+                #{provider},
+                #{scene},
+                #{exchange},
+                #{routingKey}
+            );
+    </insert>
+
+</mapper>
